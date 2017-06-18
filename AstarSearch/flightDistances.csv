@@ -1,0 +1,17 @@
+Departure,Destination,Distance/Miles
+"Moscow, Russia","Algiers, Algeria",2091.62
+"Moscow, Russia","Barcelona, Spain",1873.62
+"Moscow, Russia","Beijing, China",3660.21
+"Moscow, Russia","London, England",1573.63
+"Algiers, Algeria","San Juan, Puerto Rico",4347.02
+"Barcelona, Spain","Boston, USA",3667.01
+"Beijing, China","Tokyo, Japan",1310.37
+"London, England","Boston, USA",3296.87
+"Boston, USA","Vancouver, Canada",2515.97
+"San Juan, Puerto Rico","Dallas, USA",2140.69
+"San Juan, Puerto Rico","Chicago, USA",2037.49
+"Tokyo, Japan","Anchorage, USA",3495.62
+"Anchorage, USA","Vancouver, Canada",1330.7
+"Chicago, USA","Vancouver, Canada",1801.1
+"Seattle, USA","Vancouver, Canada",142.91
+"Dallas, USA","Seattle, USA",1697.83
