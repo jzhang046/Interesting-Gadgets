@@ -1,5 +1,5 @@
 import numpy as np
-import Display as D
+from Display import Display
 
 class Board:
 
@@ -8,6 +8,7 @@ class Board:
     XPlayer = None #Name of player using 'X'
     OPlayer = None #Name of player using 'O
     lastPosi = None #Last player entered coordinates. [row, col].
+    disp = None #Display object.
 
     def __init__(self):
 
@@ -16,7 +17,7 @@ class Board:
         while self.size < 3:
 
             if validInt:
-                print("INVALID SIZE. Size should >= 3. ")
+                self.disp.warning("INVALID SIZE. Size should >= 3. ")
 
             try:
                 self.size = int(raw_input("Enter board size n: "))
@@ -24,7 +25,7 @@ class Board:
             except KeyboardInterrupt:
                 raise
             except:
-                print("INVALID INPUT. Please enter a valid integer. ")
+                self.disp.warning("INVALID INPUT. Please enter a valid integer. ")
                 validInt = False
 
         self.board = np.zeros((self.size, self.size), np.int8)
@@ -33,8 +34,11 @@ class Board:
         self.XPlayer = raw_input("Enter name for player 1: ")
         self.OPlayer = raw_input("Enter name for player 2: ")
 
+        #Enter full screen after getting required infomation.
+        self.disp = Display()
+
     def show(self):
-        D.printBoard(self.board)
+        self.disp.printBoard(self.board)
 
     def checkWin(self):
         #Would be called after getting valid self.lastPosi.
@@ -83,12 +87,18 @@ class Board:
 
     def getNextX(self):
         self.lastPosi = self.getNext( \
-            "%s, choose a coordinate to put a 'X': " % self.XPlayer)
+            self.XPlayer + ", choose a coordinate to put a '"  + \
+                self.disp.term.on_bright_blue + \
+                "X" + self.disp.term.normal + \
+                "': " )
         self.board[self.lastPosi[0], self.lastPosi[1]] += 1
 
     def getNextO(self):
         self.lastPosi = self.getNext( \
-            "%s, choose a coordinate to put a 'O': " % self.OPlayer)
+            self.OPlayer + ", choose a coordinate to put a '"  + \
+                self.disp.term.on_bright_yellow + \
+                "O" + self.disp.term.normal + \
+                "': " )
         self.board[self.lastPosi[0], self.lastPosi[1]] -= 1
 
     def getNext(self, ppStr):
@@ -105,18 +115,19 @@ class Board:
             except KeyboardInterrupt:
                 raise
             except:
-                print("INVALID INPUT. Please enter 2 integers seperated by comma. ")
+                self.disp.warning("INVALID INPUT. " + \
+                    "Please enter 2 integers seperated by comma. ")
                 isValid = False
                 continue
 
             if row not in range(self.board.shape[0]) or \
                     col not in range(self.board.shape[1]):
-                print("INVALID INPUT. Position out of range. ")
+                self.disp.warning("INVALID INPUT. Position out of range. ")
                 isValid = False
                 continue
 
             if self.board[row, col] != 0:
-                print("INVALID INPUT. Occupied position. ")
+                self.disp.warning("INVALID INPUT. Occupied position. ")
                 isValid = False
                 continue
 
