@@ -13,8 +13,6 @@ while not winned:
     else:
         tttb.getNextO()
 
-    tttb.show()
-
     winned = tttb.checkWin()
 
     isX = not isX
@@ -26,4 +24,6 @@ if (isX):
 else:
     winner = tttb.XPlayer
 
+#Show the final board.
+tttb.show()
 print("Congratulations %s! You have won. " % winner)
