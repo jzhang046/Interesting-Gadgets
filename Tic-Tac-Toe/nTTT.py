@@ -13,6 +13,8 @@ while not winned:
     else:
         tttb.getNextO()
 
+    #Will also check whether nobody wins.
+    #Directly exit when that happenes. 
     winned = tttb.checkWin()
 
     isX = not isX
@@ -25,5 +27,4 @@ else:
     winner = tttb.XPlayer
 
 #Show the final board.
-tttb.show()
-print("Congratulations %s! You have won. " % winner)
+tttb.showWin(winner)

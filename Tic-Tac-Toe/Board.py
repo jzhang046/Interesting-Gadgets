@@ -4,10 +4,15 @@ from Display import Display
 class Board:
 
     size = -1 #Size of the board.
-    board = None #Current status of the board.
+
+    board = None #Current status of the board. np.ndarray object.
+
     XPlayer = None #Name of player using 'X'
-    OPlayer = None #Name of player using 'O
+    OPlayer = None #Name of player using 'O'
+
     lastPosi = None #Last player entered coordinates. [row, col].
+    numSetted = 0;
+
     disp = None #Display object.
 
     def __init__(self):
@@ -35,10 +40,16 @@ class Board:
         self.OPlayer = raw_input("Enter name for player 2: ")
 
         #Enter full screen after getting required infomation.
-        self.disp = Display()
+        self.disp = Display(self.size)
 
     def show(self):
         self.disp.printBoard(self.board)
+
+    def showWin(self, winner):
+        self.show()
+        self.disp.showBold("Congratulations %s! You have won. " % winner)
+        raw_input("Press Enter key to exit. ")
+        self.disp.exit()
 
     def checkWin(self):
         #Would be called after getting valid self.lastPosi.
@@ -83,6 +94,13 @@ class Board:
                             return True
 
         #After all looped position without returning true...
+        #Check if the board is full.
+        if self.numSetted == self.size * self.size:
+            self.show()
+            self.disp.showBold("Board is full and nobody wins. ")
+            raw_input("Press Enter key to exit. ")
+            self.disp.exit()
+            
         return False
 
     def getNextX(self):
@@ -132,5 +150,8 @@ class Board:
                 continue
 
             isValid = True
+
+        #Added 1 to the number of setted place.
+        self.numSetted += 1
 
         return [row, col]
